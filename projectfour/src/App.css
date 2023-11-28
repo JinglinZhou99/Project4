@@ -1,0 +1,43 @@
+.app {
+  /* 其他样式保持不变 */
+  background-color: #e9ecef; /* 更柔和的背景色 */
+}
+
+.game-record-item, .pagination button, .user-actions-container button {
+  font-size: 16px; /* 增大字体大小 */
+  padding: 10px 15px; /* 增大内边距 */
+  border-radius: 8px; /* 更圆的边角 */
+  border: 1px solid #dee2e6; /* 更柔和的边框颜色 */
+  background-color: #f8f9fa; /* 按钮背景色 */
+  color: #495057; /* 按钮文字颜色 */
+  transition: background-color 0.3s; /* 平滑颜色过渡效果 */
+}
+
+.pagination button:hover, 
+.user-actions-container button:hover {
+  background-color: #dae0e5; /* 鼠标悬停时的背景色 */
+}
+
+/* 增加页面整体的内边距，使布局更宽松 */
+body {
+  padding: 20px;
+}
+
+h1 {
+  color: #212529; /* 更深的标题颜色 */
+}
+
+/* 调整间距和排版，使页面更整洁 */
+.user-actions-container, .pagination, .game-record-item {
+  margin-bottom: 20px;
+}
+
+.handle-update-container label, .user-info-container label {
+  margin-right: 10px; /* 标签和输入框之间的间距 */
+}
+
+input[type="text"] {
+  padding: 5px 10px; /* 输入框内边距 */
+  border-radius: 5px; /* 输入框圆角 */
+  border: 1px solid #ced4da; /* 输入框边框颜色 */
+}

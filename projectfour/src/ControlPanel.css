@@ -1,0 +1,14 @@
+.app {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
