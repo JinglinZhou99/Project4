@@ -7,8 +7,12 @@ import axios from 'axios';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithRedirect, GoogleAuthProvider } from 'firebase/auth';
 
+// Maximum number of guesses allowed
 const MAX_GUESSES = 11;
+
+// Firebase configuration details
 const firebaseConfig = {
+  // My Firebase configuration keys
   apiKey: "AIzaSyCV0-z4-ztLOkCQKQWGYqLxqhhzKOnhQXo",
   authDomain: "noble-freehold-404519.firebaseapp.com",
   projectId: "noble-freehold-404519",
@@ -17,13 +21,14 @@ const firebaseConfig = {
   appId: "1:616928719132:web:290f280f0ae5c2d14ccad9"
 };
 
+// Initialize Firebase with the specified configuration
 initializeApp(firebaseConfig);
 
 const App = () => {
   const [gameRecords, setGameRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  // Authentication state management
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState('');
   const [handle, setHandle] = useState('');
@@ -31,7 +36,7 @@ const App = () => {
   const [gameOver, setGameOver] = useState(false); // State to track if the game is over
 
   const [viewOwnRecords, setViewOwnRecords] = useState(false);
-
+  // Pagination state for game records
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 5; // You can adjust this number as needed
   const indexOfLastRecord = currentPage * recordsPerPage;
@@ -68,15 +73,34 @@ const App = () => {
     }
   }, [viewOwnRecords, userId]); // Make sure to include userId in the dependency array
 
+
+  const isHandleAvailable = async (handle) => {
+    if (!handle) return true; // Return true if the handle is empty
+  
+    try {
+      const response = await axios.get(`https://noble-freehold-404519.ue.r.appspot.com/checkHandle?handle=${encodeURIComponent(handle)}&userId=${encodeURIComponent(userId)}`);
+      return !response.data; // If the handle is in use, the endpoint should return true
+    } catch (error) {
+      console.error('Error checking handle:', error);
+      return false; // Handle this as you see fit
+    }
+  };
+  
+
   async function handleSubmit(event) {
     event.preventDefault();
-    
+
+    const handleAvailable = await isHandleAvailable(handle);
+
+    if (!handleAvailable) {
+      alert("This handle is already in use by another user. Please choose a different one.");
+      return;
+    }
     const postData = {
         userId,
         handle,
         score
     };
-
     try {
         const response = await axios.post('https://noble-freehold-404519.ue.r.appspot.com/addGameRecord', postData);
         console.log('Response:', response.data);
@@ -97,7 +121,6 @@ const App = () => {
     setSubmitChoice(null);
     setScore(0);
     setGuesses([]);
-    // Reset any other relevant state variables
   };
   
   // function to call API to get all books in DB

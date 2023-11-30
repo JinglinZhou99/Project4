@@ -3,6 +3,10 @@ import com.google.cloud.spring.data.datastore.core.mapping.Entity;
 import org.springframework.data.annotation.Id;
 import java.util.Date;
 
+/**
+ * Entity representing a game record.
+ * This class is mapped to a 'games' table in the datastore.
+ */
 @Entity(name = "games")
 public class GameRecord {
   @Id
@@ -19,6 +23,11 @@ public class GameRecord {
     this.date = new Date(); // Set the current date when the record is created
   }
 
+  /**
+   * Returns a string representation of the Comment object.
+   *
+   * @return String representation of the Comment object.
+   */
   @Override
   public String toString() {
     return "GameRecord{" +
@@ -30,6 +39,7 @@ public class GameRecord {
             '}';
   }
 
+  // Getters and setters
   public void setId(Long id) {
     this.id = id;
   }
